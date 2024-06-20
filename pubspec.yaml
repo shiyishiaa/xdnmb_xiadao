@@ -112,6 +112,12 @@ flutter:
     - family: HeartIcon
       fonts:
         - asset: assets/fonts/HeartIcon.ttf
+    - family: SpoilerIcon
+      fonts:
+        - asset: assets/fonts/SpoilerIcon.ttf
+    - family: FullWidthSpaceIcon
+      fonts:
+        - asset: assets/fonts/FullWidthSpaceIcon.ttf
 
     # Noto font from Google
     #- family: 'Noto Sans'

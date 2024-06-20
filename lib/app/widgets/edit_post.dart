@@ -35,8 +35,8 @@ import '../utils/emoticons.dart';
 import '../utils/exception.dart';
 import '../utils/extensions.dart';
 import '../utils/history.dart';
-import '../utils/image.dart';
 import '../utils/icons.dart';
+import '../utils/image.dart';
 import '../utils/padding.dart';
 import '../utils/text.dart';
 import '../utils/theme.dart';
@@ -791,6 +791,34 @@ class _Dice extends StatelessWidget {
         onPressed: () => Get.dialog(_DiceDialog(onDice: onDice)),
         icon: const Icon(AppIcons.dice, size: 18.0),
       );
+}
+
+class _Spoiler extends StatelessWidget {
+  final ValueSetter<String> insertSpoiler;
+
+  const _Spoiler(
+      // ignore: unused_element
+      {super.key,
+      required this.insertSpoiler});
+
+  @override
+  Widget build(BuildContext context) => IconButton(
+      onPressed: () => {insertSpoiler('[h][/h]')},
+      icon: const Icon(AppIcons.spoiler, size: 18.0));
+}
+
+class _FullWidthSpace extends StatelessWidget {
+  final ValueSetter<String> insertFullWidthSpace;
+
+  const _FullWidthSpace(
+      // ignore: unused_element
+      {super.key,
+      required this.insertFullWidthSpace});
+
+  @override
+  Widget build(BuildContext context) => IconButton(
+      onPressed: () => {insertFullWidthSpace('　')},
+      icon: const Icon(AppIcons.fullWidthSpace, size: 18.0));
 }
 
 class _Paint extends StatelessWidget {
@@ -1563,6 +1591,7 @@ class _EmoticonState extends State<_Emoticon> {
     EmoticonData(name: '防剧透', text: '[h][/h]', offset: 3),
     EmoticonData(name: '全角空格', text: '　'),
   ]);
+
   // autocorrect: true
 
   static double _offset = 0.0;
@@ -2088,6 +2117,26 @@ class _EditPostState extends State<EditPost> {
                   _imageData.value = null;
                 })),
                 Flexible(child: _Dice(onDice: _insertText)),
+                Flexible(
+                    child: _Spoiler(
+                  insertSpoiler: (text) => {
+                    _contentController.insertText(text),
+                    _contentController.selection = TextSelection.fromPosition(
+                        TextPosition(
+                            offset:
+                                _contentController.selection.base.offset - 4))
+                  },
+                )),
+                Flexible(
+                    child: _FullWidthSpace(
+                        insertFullWidthSpace: (text) => {
+                              _contentController.insertText(text),
+                              // FIXME: TrailingFullWidthSpace https://github.com/flutter/flutter/issues/149099
+                              _contentController.selection =
+                                  TextSelection.fromPosition(TextPosition(
+                                      offset: _contentController
+                                          .selection.base.offset))
+                            })),
                 Flexible(
                   child: Obx(
                     () => _Paint(
