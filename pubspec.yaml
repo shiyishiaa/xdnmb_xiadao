@@ -1,7 +1,7 @@
 name: nmbxd
 description: An app for nmbxd.com.
 publish_to: 'none'
-version: 0.5.2-alpha+12
+version: 0.5.2+13
 
 environment:
   sdk: '>=3.4.1 <4.0.0'
@@ -23,7 +23,7 @@ dependencies:
   easy_refresh: ^3.4.0
   expandable_text: ^2.3.0
   file_picker: ^8.0.5
-  float_column: ^2.1.5
+  float_column: ^2.1.6
   flutter:
     sdk: flutter
   flutter_cache_manager: ^3.3.2
